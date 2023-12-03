@@ -1,0 +1,153 @@
+﻿!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="project.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+
+    <script>
+        function imagezoomin(){
+            var image = document.getElementById("image");
+            image.style.transform = "scale(1.2)";}
+
+        function imagezoomout(){
+            var image = document.getElementById("image");
+            image.style.transform = "scale(1)";}
+
+        function validateForm() {
+            var projectName = document.getElementById("projectName");
+            var budget = document.getElementById("budget");
+            var timeframe = document.getElementById("timeframe");
+            var area = document.getElementById("area");
+
+            var isprojectNameValid = validateField(projectName);
+            var isbudgetValid = validateField(budget);
+            var istimeframeValid = validateField(timeframe);
+
+            if (isprojectNameValid && isbudgetValid && istimeframeValid) {
+                addToTable(projectName.value, budget.value, timeframe.value , area.value);
+
+            }
+            return false;
+        }
+
+        function validateField(field) {
+            var value = field.value;
+            var message = document.getElementById("message");
+
+            if (value.trim() === "") {
+                message.innerHTML = "All fields are required.";
+                field.style.borderColor = "red";
+                return false;
+            } else {
+                message.innerHTML = "";
+                field.style.borderColor = "";
+                return true;
+            }
+        }
+
+        function addToTable(projectName, budget, timeframe , area) {
+            var table = document.getElementById("projectTable").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            cell1.innerHTML = projectName;
+            cell2.innerHTML = budget;
+            cell3.innerHTML = timeframe;
+            cell4.innerHTML = area;
+        }
+
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Project Center</h1>
+        <nav>
+            <ul>
+                <li><a href="P">Home</a></li>
+                <li><a href="#">Submit Project</a></li>
+                <li><a href="#">Browse Offers</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>How It Works</h2>
+        <ol class="layered-list">
+            <li class="layer">
+                Submit your project details including the scope of work, budget, and desired completion time.
+            </li>
+            <li class="layer">
+                Browse offers from skilled professionals who can fulfill your project requirements.
+            </li>
+            <li class="layer">
+                Choose the offer that best suits your needs and budget.
+            </li>
+            <li class="layer">
+                Get your project completed within your specified timeframe and budget.
+            </li>
+        </ol>
+    </div>
+
+    <div class="image-container">
+        <img src="ProjectManagement.jpg" alt="Project Illustration" onmouseover="imagezoomin()" onmouseout="imagezoomout()" id="image">
+    </div>
+
+    <iframe src="https://www.youtube.com/watch?v=39_O-AnzTQg&ab_channel=ZohoProjects"></iframe>
+
+    <table id="projectTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Offer</th>
+                <th>Timeframe</th>
+                <th>Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ammar</td>
+                <td>$500</td>
+                <td>7 days</td>
+                <td>Programming</td>
+            </tr>
+            <tr>
+                <td>Fawaz</td>
+                <td>$600</td>
+                <td>5 days</td>
+                <td>Design</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <main>
+        <h2>Submit Your Project</h2>
+        <form method="POST" onsubmit="return validateForm()">
+            <label for="projectName">Project Name:</label>
+            <input type="text" id="projectName" name="projectName">
+
+            <label for="budget">Budget:</label>
+            <input type="text" id="budget" name="budget">
+
+            <label for="timeframe">Timeframe:</label>
+            <input type="text" id="timeframe" name="timeframe">
+
+            <label for="area">Area:</label>
+            <select id="area" name="area" required>
+                <option value="Programming">Programming</option>
+                <option value="Design">Design</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Engineering">Engineering</option>
+            </select>
+
+            <button type="submit">Submit Project</button>
+        </form>
+        <div id="message" style="color: red;"></div>
+    </main>
+</body>
+</html>
